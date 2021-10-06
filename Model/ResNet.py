@@ -2,6 +2,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
+
 class Residual_Block(nn.Module):
     def __init__(self, in_channels, out_channels, use_1x1conv=False, stride=1):
         super(Residual_Block, self).__init__()
@@ -37,6 +38,7 @@ def resnet_block(in_channels, out_channels, num_residuals, first_block=False):
 class GlobalAvgPool2d(nn.Module):
     def __init__(self):
         super(GlobalAvgPool2d, self).__init__()
+
     def forward(self, x):
         return F.avg_pool2d(x, kernel_size=x.size()[2:])
 
