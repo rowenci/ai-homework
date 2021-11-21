@@ -59,10 +59,12 @@ def getResNet():
     net.add_module("global_avg_pool", GlobalAvgPool2d())
     net.add_module("fc", nn.Sequential(
         nn.Flatten(),
-        nn.Linear(512, 10)
+        nn.Linear(512, 256),
+        nn.Linear(256, 128),
+        nn.Linear(128, 64),
+        nn.Linear(64, 26)
     ))
     return net
-
 
 
 """

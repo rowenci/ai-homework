@@ -32,7 +32,7 @@ def vgg(conv_arch, fc_features, fc_hidden_units):
         nn.Linear(fc_hidden_units, fc_hidden_units),
         nn.ReLU(inplace=True),
         nn.Dropout(0.5),
-        nn.Linear(fc_hidden_units, 10)
+        nn.Linear(fc_hidden_units, 26)
     ))
     return net
 

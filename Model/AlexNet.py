@@ -21,21 +21,19 @@ class AlexNet(nn.Module):
             nn.Flatten()
         )
         self.fc = nn.Sequential(
-            nn.Linear(256 * 5 * 5, 4096),
+            nn.Linear(1024, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(0.5),
             nn.Linear(4096, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(0.5),
-            nn.Linear(4096, 10)
+            nn.Linear(4096, 26)
         )
     
     def forward(self, x):
         x = self.conv(x)
         x = self.fc(x)
         return x
-model = AlexNet()
-print(model)
 """
 img = torch.randn(10, 3, 32, 32)
 net = AlexNet()
