@@ -13,19 +13,26 @@ from Model import ResNet
 from Model import VGG
 from Model import AlexNet
 from Model import BasicCNN
+from Model import LeNet
 
 
 
 # 1. super parameters
 batch_size = 128
 lr = 0.001
-epochs = 100
+epochs = 10
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # 2. model
-model = ResNet.getResNet()
-# model = AlexNet.AlexNet()
+# model = ResNet.getResNet()
+model = AlexNet.AlexNet()
 # model = BasicCNN.BasicCNN()
+# model = LeNet.LeNet()
+#ratio = 8
+#conv_arch = ((1, 1, 64 // ratio), (1, 64 // ratio, 128 // ratio), (2, 128 // ratio, 256 // ratio), (2, 256 // ratio, 512 // ratio), (2, 512 // ratio, 512 // ratio))
+#fc_features = 512 * 7 * 7
+#fc_hidden_units = 4096
+#model = VGG.vgg(conv_arch, fc_features // ratio, fc_hidden_units // ratio)
 model = model.to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 loss = torch.nn.CrossEntropyLoss()
@@ -39,8 +46,8 @@ train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
 # utils
-writer = SummaryWriter("tensorLogs/resnet")
-logger = logConfig.getLogger("logs/resnet/log.txt")
+writer = SummaryWriter("tensorboardLog/alexnet")
+logger = logConfig.getLogger("logs/alexnet/log.txt")
 
 # 5. states of training
 train_step = 0
@@ -60,7 +67,6 @@ for epoch in range(epochs):
         imgs, labels = imgs.to(device), labels.to(device)
         outputs = model(imgs)
 
-        
         # get loss
         l = loss(outputs, labels)
         train_loss += l.item()
@@ -99,7 +105,7 @@ for epoch in range(epochs):
 
 
     # save model in every epoch
-    torch.save(model, "Model/trained_models/resnet/trained_resnet{}.pth".format(epoch + 1))
+    torch.save(model, "Model/trained_models/alexnet/trained_alexnet{}.pth".format(epoch + 1))
     logger.info("model has been saved")
     end_time = datetime.datetime.now()
     cost_time = (end_time - begin_time).seconds

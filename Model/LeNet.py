@@ -6,7 +6,10 @@ class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
         self.conv = nn.Sequential(
-            nn.Conv2d(1, 16, 5),
+            nn.Conv2d(1, 6, 5),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(6, 16, 5),
             nn.ReLU(),
             nn.MaxPool2d(2, 2),
             nn.Conv2d(16, 32, 5),
@@ -17,11 +20,11 @@ class LeNet(nn.Module):
         self.fc = nn.Sequential(
             # image size changes to 800 after flatten (channels = 3)
             # 512 (channels = 1)
-            nn.Linear(512, 120),
+            nn.Linear(4608, 120),
             nn.ReLU(),
             nn.Linear(120, 84),
             nn.ReLU(),
-            nn.Linear(84, 10)
+            nn.Linear(84, 26)
         )
     
     def forward(self, x):

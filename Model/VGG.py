@@ -36,7 +36,6 @@ def vgg(conv_arch, fc_features, fc_hidden_units):
     ))
     return net
 
-
 """
 创新：使用了块结构来构建网络
 

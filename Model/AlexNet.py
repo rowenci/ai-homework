@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from torch.nn.modules.conv import Conv2d
+import torch.nn.functional as F
 class AlexNet(nn.Module):
     def __init__(self):
         super(AlexNet, self).__init__()
@@ -24,16 +25,20 @@ class AlexNet(nn.Module):
             nn.Linear(1024, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(0.5),
-            nn.Linear(4096, 4096),
+            nn.Linear(4096, 1024),
             nn.ReLU(inplace=True),
             nn.Dropout(0.5),
-            nn.Linear(4096, 26)
+            nn.Linear(1024, 26),
+            nn.ReLU(inplace=True),
+            nn.Dropout(0.5),
         )
     
     def forward(self, x):
         x = self.conv(x)
         x = self.fc(x)
         return x
+
+
 """
 img = torch.randn(10, 3, 32, 32)
 net = AlexNet()
