@@ -8,10 +8,8 @@ class TrainDataSet(torch.utils.data.Dataset):
         x_train = np.load("Data/trainingData.npy")
         y_train = np.load("Data/trainingLabels.npy")
 
-        self.x = torch.from_numpy(x_train) / 255
-        self.y = torch.from_numpy(y_train)
-        self.x = self.x
-        self.y = self.y.long()
+        self.x = torch.from_numpy(x_train).float()
+        self.y = torch.from_numpy(y_train).long()
 
     def __len__(self):
         return len(self.x)
@@ -26,9 +24,8 @@ class TestDataSet(torch.utils.data.Dataset):
     def __init__(self):
         x_test = np.load("Data/testingData.npy")
         y_test = np.load("Data/testingLabels.npy")
-        self.x = torch.from_numpy(x_test) / 255
+        self.x = torch.from_numpy(x_test).float()
         self.y = torch.from_numpy(y_test)
-        self.x = self.x
         self.y = self.y.long()
 
     def __len__(self):
