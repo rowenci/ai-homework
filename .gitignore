@@ -132,3 +132,5 @@ dmypy.json
 /datas/
 /Data/
 /datas_original/
+/Data_new/
+/Model/trained_models/
